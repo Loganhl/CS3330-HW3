@@ -1,8 +1,10 @@
+
 # CS3330-HW3
-Homework 03 for OOP
 
-Group Members
+Homework 03 for OOP  
 
-Logan Limbaugh - LHLP9P
-Kaelyn Crews - 
-Kyle Williams - 
+Group L Members  
+
+Logan Limbaugh - LHLP9P  
+Kaelyn Crews - KMCXVT  
+Kyle Williams -  
