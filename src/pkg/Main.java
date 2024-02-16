@@ -1,9 +1,9 @@
 package pkg;
 
+
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("Test");
         StockManagerSingleton stockManager = new StockManagerSingleton();
 
         stockManager.setInventoryFilePath("src/inventory.csv");
