@@ -1,10 +1,13 @@
 package pkg;
 
-public class VinylRecordProduct extends MediaProject {
+public class VinylRecordProduct extends MediaProduct {
 
 	public VinylRecordProduct(String title, double price, int year, Genre genre) {
 		super(title, price, year, genre);
-		
-		
+	}
+	
+	//Copy constructor
+	public VinylRecordProduct(VinylRecordProduct product) {
+		super(product);
 	}
 }
