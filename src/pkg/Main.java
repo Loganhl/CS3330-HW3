@@ -2,10 +2,18 @@ package pkg;
 
 public class Main {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		System.out.println("Test");
+    public static void main(String[] args) {
+        System.out.println("Test");
+        StockManagerSingleton stockManager = new StockManagerSingleton();
 
-	}
+        stockManager.setInventoryFilePath("src/inventory.csv");
 
+        boolean fileReadStatus = stockManager.initializeStock();
+
+        if (fileReadStatus) {
+            System.out.println("Stock initialization successful.");
+        } else {
+            System.out.println("Stock initialization failed. Check the inventory file path.");
+        }
+    }
 }
