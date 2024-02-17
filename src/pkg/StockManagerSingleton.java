@@ -78,24 +78,24 @@ public class StockManagerSingleton {
 
             
             //Print Testing, This can be Removed.
-            for (MediaProduct p : inventory) {
-            	if(p instanceof VinylRecordProduct)
-               System.out.println(p);
-            }
+            //for (MediaProduct p : inventory) {
+            //	if(p instanceof VinylRecordProduct)
+            //   System.out.println(p);
+            //}
             
-            System.out.println("divide");
+            //System.out.println("divide");
+            //
+            //for (MediaProduct p : inventory) {
+            //	if(p instanceof CDRecordProduct)
+            //   System.out.println(p);
+            //}
             
-            for (MediaProduct p : inventory) {
-            	if(p instanceof CDRecordProduct)
-               System.out.println(p);
-            }
-            
-            System.out.println("divide");
-            
-            for (MediaProduct p : inventory) {
-            	if(p instanceof TapeRecordProduct)
-               System.out.println(p);
-            }
+            //System.out.println("divide");
+            //
+            //for (MediaProduct p : inventory) {
+            //	if(p instanceof TapeRecordProduct)
+            //   System.out.println(p);
+            //}
             
             
             // End Print Testing
@@ -120,48 +120,65 @@ public class StockManagerSingleton {
 		for (MediaProduct existingProduct : inventory)
 		{
 			if (existingProduct.equals(product)) {
+				existingProduct.setPrice(newPrice);
+				System.out.println("\nPrice updated: " + product.getTitle());
 				return true;
 			}
 		}
 		
-		System.out.println("Product not found. Update failed.");
+		System.out.println("\nProduct not found. Update failed.");
 		return false;
 		
      }
-//
+
+	
 	public boolean addItem(MediaProduct product) {
 		if (inventory.contains(product)) {
-			System.out.println("Product already exists in inventory. Addition Failed.");
+			System.out.println("\nProduct already exists in inventory. Addition Failed.");
 			return false;
 		}
 		
 		inventory.add(product);
 		
-		System.out.println("Pduct added to the inventory: " + product.getTitle());
+		System.out.println("\nProduct added to the inventory: " + product.getTitle());
 		return true;
 	}
-//	
+	
+	
 	public boolean removeItem(MediaProduct product) {
 		
 		if (inventory.contains(product)) {
 			inventory.remove(product);
-			System.out.println("Product removed from the inventory: " + product.getTitle());
+			System.out.println("\nProduct removed from the inventory: " + product.getTitle());
 			return true;
 		}else {
-			System.out.println("Product not found. Removal failed.");
+			System.out.println("\nProduct not found. Removal failed.");
 			return false;
 		}
 	}
-//	
+	
 	public boolean saveStock() {
 	try {
 		FileWriter writer = new FileWriter(inventoryFilePath);
 		
-		writer.write("Type. Title, Price, Year, Genre\n");
+		writer.write("Type,Title,Price,Year,Genre\n");
 		
 		for (MediaProduct product : inventory) {
-			String productLine = String.format("%s, %s, %.2f, %d, $s/n",
-					product.getClass().getSimpleName(),
+			String type = product.getClass().getSimpleName();
+			switch (type) {
+			case "VinylRecordProduct":
+				type = "Vinyl";
+				break;
+			case "CDRecordProduct":
+				type = "CD";
+				break;
+			case "TapeRecordProduct":
+				type = "Tape";
+				break;
+			}
+			
+			String productLine = String.format("%s,%s,%.2f,%d,%s\n",
+					type,
 					product.getTitle(), 
 					product.getPrice(), 
 					product.getYear(), 
@@ -171,9 +188,11 @@ public class StockManagerSingleton {
 		}
 		writer.close();
 		return true;
+		
 	} catch (IOException e) {
 		System.out.println("Error saving inventory to file: " + e.getMessage());
 		return false;
+		
 	}
 	
 }
