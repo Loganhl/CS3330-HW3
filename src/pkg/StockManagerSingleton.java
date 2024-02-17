@@ -78,9 +78,28 @@ public class StockManagerSingleton {
 
             
             //Print Testing, This can be Removed.
-            //for (MediaProduct p : inventory) {
-            //    System.out.println(p);
-            //}
+            for (MediaProduct p : inventory) {
+            	if(p instanceof VinylRecordProduct)
+               System.out.println(p);
+            }
+            
+            System.out.println("divide");
+            
+            for (MediaProduct p : inventory) {
+            	if(p instanceof CDRecordProduct)
+               System.out.println(p);
+            }
+            
+            System.out.println("divide");
+            
+            for (MediaProduct p : inventory) {
+            	if(p instanceof TapeRecordProduct)
+               System.out.println(p);
+            }
+            
+            
+            // End Print Testing
+            
             return true;
 	        
 		} catch (Exception e){

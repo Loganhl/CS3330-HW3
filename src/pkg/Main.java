@@ -10,10 +10,13 @@ public class Main {
 
         boolean fileReadStatus = stockManager.initializeStock();
 
+        // General statement to show the program ran.
         if (fileReadStatus) {
             System.out.println("Stock initialization successful.");
         } else {
             System.out.println("Stock initialization failed. Check the inventory file path.");
         }
+        
+     
     }
 }
