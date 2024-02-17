@@ -2,6 +2,9 @@ package pkg;
 import java.util.Scanner;
 import java.io.File;
 import java.util.ArrayList;
+import java.io.FileWriter;
+import java.util.List;
+import java.io.IOException;
 
 public class StockManagerSingleton {
 	private String inventoryFilePath;
@@ -93,27 +96,73 @@ public class StockManagerSingleton {
         this.inventoryFilePath = inventoryFilePath;
     }
 	
-//	public boolean updateItemPrice(MediaProduct product, double newPrice) {
-//		//Updates the price of the given media product to the newPrice.
-//		//Returns true if the update is successful, false otherwise
-//	}
+	public boolean updateItemPrice(MediaProduct product, double newPrice) {
+		
+		for (MediaProduct existingProduct : inventory)
+		{
+			if (existingProduct.equals(product)) {
+				return true;
+			}
+		}
+		
+		System.out.println("Product not found. Update failed.");
+		return false;
+		
+     }
 //
-//	public boolean addItem(MediaProduct product) {
-//		//Adds a new media product to the inventory.
-//		//Returns true if the addiHon is successful, false otherwise.
-//	}
+	public boolean addItem(MediaProduct product) {
+		if (inventory.contains(product)) {
+			System.out.println("Product already exists in inventory. Addition Failed.");
+			return false;
+		}
+		
+		inventory.add(product);
+		
+		System.out.println("Pduct added to the inventory: " + product.getTitle());
+		return true;
+	}
 //	
-//	public boolean removeItem(MediaProduct product) {
-//		//Removes the given media product from the inventory.
-//		//Returns true if the removal is successful, false otherwise.
-//	}
+	public boolean removeItem(MediaProduct product) {
+		
+		if (inventory.contains(product)) {
+			inventory.remove(product);
+			System.out.println("Product removed from the inventory: " + product.getTitle());
+			return true;
+		}else {
+			System.out.println("Product not found. Removal failed.");
+			return false;
+		}
+	}
 //	
-//	public boolean saveStock() {
-//		//Saves the updated inventory back to the CSV file located at inventoryFilePath.
-//		//Overwrites the existing file with the updated inventory data.
-//		//Returns true if the saving is successful, false otherwise (file does not exist, or file empty).
-//	}
-//	
+	public boolean saveStock() {
+	try {
+		FileWriter writer = new FileWriter(inventoryFilePath);
+		
+		writer.write("Type. Title, Price, Year, Genre\n");
+		
+		for (MediaProduct product : inventory) {
+			String productLine = String.format("%s, %s, %.2f, %d, $s/n",
+					product.getClass().getSimpleName(),
+					product.getTitle(), 
+					product.getPrice(), 
+					product.getYear(), 
+					product.getGenre().toString());
+					
+					writer.write(productLine);
+		}
+		writer.close();
+		return true;
+	} catch (IOException e) {
+		System.out.println("Error saving inventory to file: " + e.getMessage());
+		return false;
+	}
+	
+}
+		
+		
+		
+		
+		
 	public ArrayList<MediaProduct> getMediaProductBelowPrice(int maxPrice) {
 		//Gets the media products that are below the given maxPrice.
 		//This creates a new ArrayList of media products that is below the maxPrice. Beware of not leaking any informaHon.

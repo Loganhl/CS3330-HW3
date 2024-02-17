@@ -16,6 +16,26 @@ public class MediaProduct {
     	this.genre = genre;
     }
     
+    public void setPrice(double newPrice) {
+    	this.price = newPrice;
+    }
+    
+    public String getTitle() {
+    	return title;
+    }
+    
+    public double getPrice() {
+    	return price;
+    }
+    
+    public int getYear() {
+    	return year;
+    }
+    
+    public Genre getGenre() {
+    	return genre;
+    }
+    
     // Copy constructor
     public MediaProduct(MediaProduct product) {
     	this.title = product.title;
